@@ -1,0 +1,8 @@
+
+g	java:S112&"FDefine and throw a dedicated exception instead of using a generic one.(ñ¾†šùÿÿÿÿ8éÎ¨žä/
+^
+java:S3457"AFormat specifiers should be used instead of string concatenation.(áö¸¿8‰Ô¨žä/
+c
+java:S3457%"AFormat specifiers should be used instead of string concatenation.(€¶ñ»úÿÿÿÿ8¨Ô¨žä/
+T
+java:S2629"7Use the built-in formatting to construct this argument.(áö¸¿8çÔ¨žä/
