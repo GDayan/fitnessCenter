@@ -39,6 +39,7 @@ public class OrderDaoImpl extends BaseDao<Order> implements OrderDao {
     private static final String SQL_SELECT_ALL_USER_ORDERS = """
             SELECT orderId, orderDate, exercises, nutrition, price, isActive, userId 
             FROM orders WHERE userId = (?)""";
+
     @Override
     public List<Order> findAll() throws DaoException {
         List<Order> orderList = new ArrayList<>();
@@ -46,26 +47,26 @@ public class OrderDaoImpl extends BaseDao<Order> implements OrderDao {
         try {
             statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_ORDERS);
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 Optional<Order> optionalOrder = new OrderMapper().mapRow(resultSet);
-                if(optionalOrder.isPresent()) {
+                if (optionalOrder.isPresent()) {
                     orderList.add(optionalOrder.get());
                 }
             }
         } catch (SQLException e) {
             throw new DaoException(e);
-        }finally {
+        } finally {
             close(statement);
         }
         return orderList;
     }
 
     @Override
-    public Optional<Order> findEntityById(long id) throws DaoException{
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ORDER_BY_ID);){
-            statement.setLong(1,id);
+    public Optional<Order> findEntityById(long id) throws DaoException {
+        try (PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_SELECT_ORDER_BY_ID)) {
+            statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 return new OrderMapper().mapRow(resultSet);
             }
         } catch (SQLException e) {
@@ -75,15 +76,15 @@ public class OrderDaoImpl extends BaseDao<Order> implements OrderDao {
     }
 
     @Override
-    public boolean delete(long id) throws DaoException{
+    public boolean delete(long id) throws DaoException {
         PreparedStatement statement = null;
-        try{
+        try {
             statement = this.proxyConnection.prepareStatement(SQL_DELETE_ORDER);
-            statement.setLong(1,id);
-            return statement.executeUpdate() != 0 ? true : false;
+            statement.setLong(1, id);
+            return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             throw new DaoException(e);
-        }finally {
+        } finally {
             close(statement);
         }
 
@@ -91,30 +92,34 @@ public class OrderDaoImpl extends BaseDao<Order> implements OrderDao {
 
     @Override
     public boolean delete(Order entity) throws DaoException {
-        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_DELETE_ORDER);){
-            statement.setLong(1,entity.getOrderId());//TODO why?
-            return statement.executeUpdate() != 0 ? true : false;
+        PreparedStatement statement = null;
+        try {
+            statement = this.proxyConnection.prepareStatement(SQL_DELETE_ORDER);
+            statement.setLong(1, entity.getOrderId());//TODO why?
+            return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             throw new DaoException(e);
-        }// TODO сделать такими образом
+        } finally {
+            close(statement);
+        }
     }
 
     @Override
     public boolean create(Order entity) throws DaoException {
         PreparedStatement statement = null;
-        try{
+        try {
             statement = this.proxyConnection.prepareStatement(SQL_INSERT_NEW_ORDER);
-            statement.setLong(1,entity.getOrderId());
+            statement.setLong(1, entity.getOrderId());
             statement.setTimestamp(2, java.sql.Timestamp.valueOf(entity.getOrderDate()));
-            statement.setString(3,entity.getExercises());
-            statement.setString(4,entity.getNutrition());
-            statement.setInt(5,entity.getPrice());
-            statement.setBoolean(6,entity.getIsActive());
+            statement.setString(3, entity.getExercises());
+            statement.setString(4, entity.getNutrition());
+            statement.setInt(5, entity.getPrice());
+            statement.setBoolean(6, entity.getIsActive());
             statement.setLong(7, entity.getUserId());
-            return statement.executeUpdate() != 0 ? true : false;
+            return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             throw new DaoException(e);
-        }finally {
+        } finally {
             close(statement);
         }
     }
@@ -122,19 +127,19 @@ public class OrderDaoImpl extends BaseDao<Order> implements OrderDao {
     @Override
     public boolean update(Order entity) throws DaoException {
         PreparedStatement statement = null;
-        try{
+        try {
             statement = this.proxyConnection.prepareStatement(SQL_UPDATE_ORDER);
-            statement.setLong(1,entity.getOrderId());
+            statement.setLong(1, entity.getOrderId());
             statement.setTimestamp(2, java.sql.Timestamp.valueOf(entity.getOrderDate()));
-            statement.setString(3,entity.getExercises());
-            statement.setString(4,entity.getNutrition());
-            statement.setInt(5,entity.getPrice());
-            statement.setBoolean(6,entity.getIsActive());
+            statement.setString(3, entity.getExercises());
+            statement.setString(4, entity.getNutrition());
+            statement.setInt(5, entity.getPrice());
+            statement.setBoolean(6, entity.getIsActive());
             statement.setLong(7, entity.getUserId());
             return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             throw new DaoException(e);
-        }finally {
+        } finally {
             close(statement);
         }
     }
@@ -145,17 +150,17 @@ public class OrderDaoImpl extends BaseDao<Order> implements OrderDao {
         PreparedStatement statement = null;
         try {
             statement = this.proxyConnection.prepareStatement(SQL_SELECT_ALL_USER_ORDERS);
-            statement.setLong(1,user.getUserId());
+            statement.setLong(1, user.getUserId());
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 Optional<Order> optionalOrder = new OrderMapper().mapRow(resultSet);
-                if(optionalOrder.isPresent()) {
+                if (optionalOrder.isPresent()) {
                     orderList.add(optionalOrder.get());
                 }
             }
         } catch (SQLException e) {
             throw new DaoException(e);
-        }finally {
+        } finally {
             close(statement);
         }
         return orderList;

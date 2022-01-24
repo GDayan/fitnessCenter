@@ -1,12 +1,9 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
-    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <title>FitnessCenter</title></head>
+    <title>Index</title>
+</head>
 <body>
-<h2>FitnessCenter</h2>
-<br/>
-<form action = "controller" method="get">
-    <input type="text" name = "Number" value="1">
-    <input type="submit" name="sub" value="push">
-</form>
-</body></html>
+<jsp:forward page="/jsp/pages/guest.jsp"></jsp:forward>
+</body>
+</html>

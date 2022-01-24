@@ -12,57 +12,57 @@ public class EntityTransaction {
     static final Logger logger = LogManager.getLogger();
     private Connection connection;
 
-    public void initTransaction(BaseDao...daos){
-        if(connection == null){
+    public void initTransaction(BaseDao... daos) {
+        if (connection == null) {
             connection = CustomConnectionPool.getInstance().getConnection();
         }
-        try{
+        try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
-            logger.log(Level.ERROR,e.getMessage());
+            logger.log(Level.ERROR, e.getMessage());
         }
-        for(BaseDao daoElement: daos){
+        for (BaseDao daoElement : daos) {
             daoElement.setConnection(connection);
         }
     }
 
-    public void endTransaction(){
-        if(connection != null){
-            try{
+    public void endTransaction() {
+        if (connection != null) {
+            try {
                 connection.setAutoCommit(true);
             } catch (SQLException e) {
-                logger.log(Level.ERROR,e.getMessage());
+                logger.log(Level.ERROR, e.getMessage());
             }
             CustomConnectionPool.getInstance().releaseConnection(connection);
             connection = null;
         }
     }
 
-    public void commit(){
-        try{
+    public void commit() {
+        try {
             connection.commit();
         } catch (SQLException e) {
-            logger.log(Level.ERROR,e.getMessage());
+            logger.log(Level.ERROR, e.getMessage());
         }
     }
 
-    public void rollback(){
-        try{
+    public void rollback() {
+        try {
             connection.rollback();
         } catch (SQLException e) {
-            logger.log(Level.ERROR,e.getMessage());
+            logger.log(Level.ERROR, e.getMessage());
         }
     }
 
-    public void init(BaseDao dao){
-        if(connection == null){
+    public void init(BaseDao dao) {
+        if (connection == null) {
             connection = CustomConnectionPool.getInstance().getConnection();
         }
         dao.setConnection(connection);
     }
 
-    public void end(){
-        if(connection != null){
+    public void end() {
+        if (connection != null) {
             CustomConnectionPool.getInstance().releaseConnection(connection);
         }
         connection = null;

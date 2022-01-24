@@ -1,7 +1,7 @@
 package by.epam.webtask.model.mapper;
 
-import by.epam.webtask.model.entity.CustomEntity;
 import by.epam.webtask.exception.DaoException;
+import by.epam.webtask.model.entity.CustomEntity;
 
 import java.sql.ResultSet;
 import java.util.Optional;

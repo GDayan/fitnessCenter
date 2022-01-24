@@ -1,9 +1,9 @@
 package by.epam.webtask.model.entity;
 
-import java.time.LocalDateTime;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
-public class Client extends User{
+public class Client extends User {
 
     private LocalDateTime registerDate;
     private BigDecimal money;

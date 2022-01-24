@@ -8,12 +8,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-public class MailMain{
+public class MailMain {
     static final Logger logger = LogManager.getLogger();
+
     public static void main(String[] args) {
         Properties properties = new Properties();
-        try(FileReader fileReader = new FileReader("src/main/resources/config/mail.properties"))
-        {
+        try (FileReader fileReader = new FileReader("src/main/resources/config/mail.properties")) {
             properties.load(fileReader);
         } catch (IOException e) {
             logger.log(Level.ERROR, "Exception while reading " + e);

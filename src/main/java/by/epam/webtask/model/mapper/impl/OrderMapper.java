@@ -17,11 +17,12 @@ public class OrderMapper implements CustomRowMapper<Order> {
     public static final String NUTRITION = "nutrition";
     public static final String PRICE = "price";
     public static final String IS_ACTIVE = "isActive";
+
     @Override
     public Optional<Order> mapRow(ResultSet resultSet) throws DaoException {
         Order order = new Order();
         Optional<Order> optionalOrder;//TODO
-        try{
+        try {
             order.setOrderId(resultSet.getLong(ORDER_ID));
             order.setOrderDate(resultSet.getTimestamp(ORDER_DATE).toLocalDateTime());
             order.setExercises(resultSet.getString(EXERCISES));
@@ -31,7 +32,6 @@ public class OrderMapper implements CustomRowMapper<Order> {
             order.setUserId(resultSet.getLong(USER_ID));
             optionalOrder = Optional.of(order);
         } catch (SQLException e) {
-            //TODO log
             optionalOrder = Optional.empty();
         }
         return optionalOrder;

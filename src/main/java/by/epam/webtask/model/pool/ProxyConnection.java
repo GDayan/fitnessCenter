@@ -1,15 +1,13 @@
 package by.epam.webtask.model.pool;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
-
-import by.epam.webtask.exception.ConnectionPoolException;
-import by.epam.webtask.exception.CustomException;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ProxyConnection implements Connection {
     private static final Logger logger = LogManager.getLogger();
@@ -27,11 +25,11 @@ public class ProxyConnection implements Connection {
         CustomConnectionPool.getInstance().releaseConnection(this);
     }
 
-    void reallyClose(){
+    void reallyClose() {
         try {
             connection.close();
         } catch (SQLException e) {
-            logger.log(Level.ERROR,"Database access error: " + e.getMessage());
+            logger.log(Level.ERROR, "Database access error: " + e.getMessage());
         }
     }
 

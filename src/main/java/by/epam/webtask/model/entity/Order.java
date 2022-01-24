@@ -2,7 +2,7 @@ package by.epam.webtask.model.entity;
 
 import java.time.LocalDateTime;
 
-public class Order extends CustomEntity{
+public class Order extends CustomEntity {
     Long orderId;
     LocalDateTime orderDate;
     String exercises;
@@ -11,7 +11,7 @@ public class Order extends CustomEntity{
     boolean isActive;
     private long userId;
 
-    public Order(){
+    public Order() {
 
     }
 
@@ -80,5 +80,5 @@ public class Order extends CustomEntity{
     public void setUserId(long userId) {
         this.userId = userId;
     }
-
+//TODO ?java bean
 }

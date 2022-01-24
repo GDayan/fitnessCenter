@@ -16,10 +16,11 @@ import java.util.Properties;
 public class MailSender {
     static final Logger logger = LogManager.getLogger();
     private MimeMessage message;
-    private String sendToEmail;
-    private String mailSubject;
-    private String mailText;
-    private Properties properties;
+    private final String sendToEmail;
+    private final String mailSubject;
+    private final String mailText;
+    private final Properties properties;
+
     public MailSender(String sendToEmail, String mailSubject, String mailText,
                       Properties properties) {
         this.sendToEmail = sendToEmail;
@@ -27,16 +28,18 @@ public class MailSender {
         this.mailText = mailText;
         this.properties = properties;
     }
+
     public void send() {
         try {
             initMessage();
             Transport.send(message);
         } catch (AddressException e) {
-            logger.log(Level.ERROR,"Invalid address: " + sendToEmail + " " + e);
+            logger.log(Level.ERROR, "Invalid address: " + sendToEmail + " " + e);
         } catch (MessagingException e) {
-            logger.log(Level.ERROR,"Error generating or sending message: " + e);
+            logger.log(Level.ERROR, "Error generating or sending message: " + e);
         }
     }
+
     private void initMessage() throws MessagingException {
         Session mailSession = SessionFactory.createSession(properties);
         mailSession.setDebug(true);

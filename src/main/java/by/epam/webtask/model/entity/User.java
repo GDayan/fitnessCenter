@@ -1,33 +1,34 @@
 package by.epam.webtask.model.entity;
 
-public class User extends CustomEntity{
+public class User extends CustomEntity {
 
-    public enum UserRole{
+    public enum UserRole {
         ADMIN(1),
         CLIENT(2),
         TRAINER(3);
 
-        private long roleId;
+        private final long roleId;
 
-        UserRole(long id){
+        UserRole(long id) {
             roleId = id;
         }
 
-        public long getRoleId(){
+        public long getRoleId() {
             return roleId;
         }
     }
-    public enum UserState{
+
+    public enum UserState {
         ACTIVE(1),
         BLOCKED(2);
 
-        private long stateId;
+        private final long stateId;
 
-        UserState(long id){
+        UserState(long id) {
             stateId = id;
         }
 
-        public long getStateId(){
+        public long getStateId() {
             return stateId;
         }
     }
@@ -42,7 +43,8 @@ public class User extends CustomEntity{
     private String email;
     private UserState state;
 
-    public User(){}
+    public User() {
+    }
 
     public User(long userId, String firstName, String lastName, String login,
                 String password, String email, int phoneNumber, UserRole role, UserState state) {
@@ -69,15 +71,15 @@ public class User extends CustomEntity{
         this.state = state;
     }
 
-    public static class Builder{
-        private User user = new User();
+    public static class Builder {
+        private final User user = new User();
 
         public Builder userId(long userId) {
             user.userId = userId;
             return this;
         }
 
-        public Builder firstName(String firstName){
+        public Builder firstName(String firstName) {
             user.firstName = firstName;
             return this;
         }

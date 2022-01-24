@@ -1,6 +1,6 @@
 package by.epam.webtask.exception;
 
-public class CustomException extends Exception{
+public class CustomException extends Exception {
     public CustomException() {
     }
 
