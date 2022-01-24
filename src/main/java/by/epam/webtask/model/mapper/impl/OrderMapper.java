@@ -31,6 +31,7 @@ public class OrderMapper implements CustomRowMapper<Order> {
             order.setUserId(resultSet.getLong(USER_ID));
             optionalOrder = Optional.of(order);
         } catch (SQLException e) {
+            //TODO log
             optionalOrder = Optional.empty();
         }
         return optionalOrder;

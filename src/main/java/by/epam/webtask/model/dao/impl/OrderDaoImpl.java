@@ -91,16 +91,12 @@ public class OrderDaoImpl extends BaseDao<Order> implements OrderDao {
 
     @Override
     public boolean delete(Order entity) throws DaoException {
-        PreparedStatement statement = null;
-        try{
-            statement = this.proxyConnection.prepareStatement(SQL_DELETE_ORDER);
+        try(PreparedStatement statement = this.proxyConnection.prepareStatement(SQL_DELETE_ORDER);){
             statement.setLong(1,entity.getOrderId());//TODO why?
             return statement.executeUpdate() != 0 ? true : false;
         } catch (SQLException e) {
             throw new DaoException(e);
-        }finally {
-            close(statement);
-        }
+        }// TODO сделать такими образом
     }
 
     @Override
